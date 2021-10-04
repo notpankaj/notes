@@ -1,0 +1,54 @@
+//dependencies
+npm install redux react-redux
+
+
+-----------------
+2. ACTIONS
+-----------------
+const increment = () => { 
+    return {
+        type : "INCREMENT",
+        payload : 2,
+    } 
+};
+const decrement = () => ({ type : "DECREMENT" });
+
+
+-----------------
+3. REDUCER -> updates the store based on action
+-----------------
+const counter = (state = 0, action) => {
+  switch(action.type){
+    case 'INCREMENT':
+      return state + action.payload;
+    case 'DECREMENT':
+        return state - 1;
+    }
+}
+    
+-----------------
+1. STORE -> GLOBALIZED STATE
+-----------------
+let store = createStore(counter);
+
+console.log(store,'STORE OBJ');
+store.subscribe(() => console.log(store.getState(),"🤗"));
+
+########## structure of STORE  #########
+{
+    dispatch: f, // fire's an action to redurer
+    getState: f, //return current state
+    replaceReducer: f,
+    subscribe: f,  //listener for state change
+}
+############################
+
+
+-----------------
+4. DISPATCH -> fire's an action to reducer to update state
+-----------------
+store.dispatch(increment());
+store.dispatch(increment());
+store.dispatch(increment());
+store.dispatch(decrement());
+store.dispatch(increment());

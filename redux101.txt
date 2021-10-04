@@ -1,0 +1,102 @@
+#######################################
+#############  R E D U X ##############
+#######################################
+-------------------------------------
+### creating state and reducer ###
+-------------------------------------
+reducer /dir
+    counter.js
+
+const counterReducer = (state = 0, action) => {
+    switch(action.type){
+        case "INCREMENT":
+            return state + action.payload;
+        case "DECREMENT":
+            return state - action.payload;
+        default:
+            return state;
+    }
+}
+export default counterReducer;
+
+
+-------------------------------------
+### creating store ###
+-------------------------------------
+since we have more than one reducer, we have to commbine them
+
+reducer /dir
+    index.js  //here we combine isLoggend and counter reducer's 
+    isLoggend.js
+    counter.js
+
+-> inside reducer/index.js
+//importing all reducer and combineing them into single export
+
+import { combineReducers } from "redux";
+import counterReducer from "./counter"; 
+import isLoggedReducer from "./isLogged";
+const allReducers = combineReducers({counterReducer,isLoggedReducer});
+export default allReducers;
+
+//making store available to whole application
+-> inside index.js
+
+import { createStore }  from 'redux';
+import allReducers from './reducers';
+import {Provider} from 'react-redux'; 
+
+const store = createStore(allReducers);
+
+<Provider store={store}>
+      <App />
+</Provider>
+
+-------------------------------------
+### USING IN ANY COMPONENT ###
+-------------------------------------
+import { useSelector, useDispatch } from 'react-redux';
+
+const isLogged = useSelector(state => state.islogged); //state
+const counter = useSelector(state => state.counter); //state
+
+const dispatch = useDispatch()  //used to fire an action
+
+<button onClick={ () => dispatch({type:'INCREMENT', payload : 5 }) } >INCREMENT</button>
+<button onClick={ () => dispatch({type:'DECREMENT', payload : 5}) }>DECREMENT</button>
+<button onClick={ () => dispatch(type: 'SIGN_IN') }>LOG</button>
+       
+
+-------------------------------------
+### EXTRA SPLITING ACTIONS LOGIN ###
+-------------------------------------
+actions /dir
+    index.js
+
+export const increment = (payload = 1) => {
+    return {
+        type: 'INCREMENT',
+        payload
+    };
+}
+
+export const decrement = (payload = 1) => {
+    return {
+        type: 'DECREMENT',
+        payload 
+    };
+}
+
+
+export const isLoggedSwitch = () => {
+    return {
+        type : 'SIGN_IN'
+    }
+}
+
+//using in any component
+import {increment, decrement, isLoggedSwitch} from './actions';
+<button onClick={ () => dispatch(increment(5)) } >INCREMENT</button>
+<button onClick={ () => dispatch(decrement(15)) }>DECREMENT</button>
+<button onClick={ () => dispatch(isLoggedSwitch()) }>LOG</button>
+       

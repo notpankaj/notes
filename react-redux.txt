@@ -1,0 +1,134 @@
+//put actions and reducer in it own seprate files
+
+
+
+###### makeing multiple reducers  ###### 
+
+-----------
+reducers/isLogged.js
+-----------
+    const isLoggedReducer = (state = false, action) =>{
+        switch(action.type){
+            case 'SIGN_IN':
+                return !state;
+        }
+    }
+    export default isLoggedReducer;
+
+
+-----------
+reducers/counter.js 
+-----------
+    const counterReducer = (state = 0, action) => {
+        switch(action.type){
+            case "INCREMENT":
+                return state + 1;
+            case "DECREMENT":
+                return state - 1;
+        }
+    }
+    export default counterReducer;
+
+
+###### combing multiple reducers  ###### 
+-----------
+reducers/index.js 
+-----------
+# we have 2 reducer so we cannot use both
+import { createStore }  from 'redux';
+import counterReducer from './reducers/counter';
+import isLoggedReducer from './reducers/isLogged';
+const store = createStore(counterReducer,isLoggedReducer); //not gonna work 
+
+# we have to use combined reducers
+
+import { combineReducers } from "redux";
+import counterReducer from "./counter";
+import isLoggedReducer from "./isLogged";
+
+const allReducers = combineReducers({
+    counter: counterReducer,
+    islogged: isLoggedReducer,
+});
+
+# hotshot -> const allReducers = combineReducers({counterReducer,isLoggedReducer});
+export default allReducers;
+
+
+###### makeing available to whole app  ###### 
+----------
+index.js
+----------
+import allReducers from './reducers';
+import {Provider} from 'react-redux';  //connects our store to inter </App>
+
+const store = createStore(
+  allReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+# wrapp our whole app inside provider 
+ <Provider store={store}>
+    <App />
+ </Provider>
+
+
+###### accessing store value  ###### 
+----------
+any commponent
+----------
+import { useSelector } from 'react-redux';
+  const isLogged = useSelector(state => state.isLogged);
+  const counter = useSelector(state => state.counter);
+  return (
+    <div className="App">
+      <h1>COUNTER : {counter} </h1>
+      {
+        isLogged && <h2>ONLY LOGGED USER CAN SEE</h2>
+      }
+
+      <button>INCREMENT</button>
+      <button>DECREMENT</button>
+      <button>LOG</button>
+    </div>
+  );
+
+###### creating action  ###### 
+----------
+actions/index.js
+----------
+export const increment = (payload = 1) => {
+    return {
+        type: 'INCREMENT',
+        payload
+    };
+}
+export const decrement = (payload = 1) => {
+    return {
+        type: 'DECREMENT',
+        payload 
+    };
+}
+export const isLoggedSwitch = () => {
+    return {
+        type : 'SIGN_IN'
+    }
+}
+
+
+###### dispatching action  ###### 
+----------
+any commponent
+----------
+import {increment} from './actions';
+import {decrement} from './actions';
+import {isLoggedSwitch} from './actions';
+import { useDispatch } from 'react-redux';
+
+const dispatch = useDispatch() 
+
+<h1>COUNTER : {counter} </h1>
+{ isLogged && <h2>ONLY LOGGED USER CAN SEE</h2> }
+<button onClick={ () => dispatch(increment(5)) } >INCREMENT</button>
+<button onClick={ () => dispatch(decrement(15)) }>DECREMENT</button>
+<button onClick={ () => dispatch(isLoggedSwitch()) }>LOG</button>
