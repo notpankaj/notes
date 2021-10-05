@@ -1,0 +1,32 @@
+import React, { useCallback, useState } from "react"
+import { useRef } from "react";
+
+
+const Hello = React.memo(({ onClick }) => {
+
+    let renders = useRef(0)
+    console.log('renders', renders.current++)
+    console.log('create')
+
+    return (
+        <h1 onClick={onClick} >Hello</h1>
+    )
+})
+
+function UseCallbackEg() {
+    const [count, setCount] = useState(0);
+
+    const increment = useCallback(() => {
+        setCount(c => c + 1)
+    },[setCount]);
+
+    return (
+        <>
+            <Hello onClick={increment} />
+            <div >count: {count}</div>
+        </>
+    )
+}
+
+export default UseCallbackEg
+

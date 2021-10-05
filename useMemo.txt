@@ -1,0 +1,31 @@
+import { useMemo, useState } from 'react';
+import useFetch from '../useFetch'
+export default function UseMemoEg() {
+
+    const [count,setCount] = useState(0);
+     const data = "daasd746734 432784884234 aadahsdhashdjsahdjashd 4823 4 sdkask";
+
+    function calcLw(arr){
+        console.log("CALCULATING")
+        let lw = '';
+        arr.split(' ').forEach(w => {
+            if(w.length > lw.length){
+                lw = w;
+            }
+        })
+        return lw;
+    }
+
+
+
+    const lw  = useMemo(()=> calcLw(data) ,[data]);
+    // const lw  =  calcLw(data);
+
+    return (
+        <>
+        <div>count : {count}</div>
+        <div>lw: {lw}</div>
+        <button onClick={() => setCount(count+1)} >Hello</button>
+        </>
+    )
+}

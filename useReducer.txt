@@ -1,0 +1,25 @@
+import { useReducer } from "react";
+
+function UseReducerEg() {
+    
+    function myReducer (state, action){
+        
+        if(action.type === "ADD"){
+            return state + action.playload;
+        }else{
+            return state;
+        }
+
+    }
+    
+    const [state,dispatch] = useReducer(myReducer,0);
+
+    return (
+        <>
+          <div>state: {state}</div>
+          <button onClick={()=> dispatch({type: "ADD", playload: 100})} >+</button>  
+        </>
+    )
+}
+
+export default UseReducerEg

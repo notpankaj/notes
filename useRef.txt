@@ -1,0 +1,29 @@
+import React, { useState } from "react"
+import { useRef } from "react";
+
+
+const Hello =  ({onClick}) =>{
+
+    // let renders = 0;
+    let renders =  useRef(0)
+    console.log('renders',renders.current++)
+
+    return (
+        <h1 onClick={onClick} >Hello</h1>
+    )
+}
+
+
+function UseRefEg() {
+    const [count,setCount] = useState(0);
+
+    return (
+        <>
+            <Hello  onClick={() => setCount(count+1)}  />
+            <div >count: {count}</div>
+        </>
+    )
+}
+
+export default UseRefEg
+

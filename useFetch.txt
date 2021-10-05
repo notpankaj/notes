@@ -1,0 +1,30 @@
+import { useEffect, useState } from "react";
+import { useRef } from "react";
+
+function useFetch(url) {
+
+    const isCurrent = useRef(true);
+    const [state,setState] = useState({data: null, loading: true});
+
+    useEffect(() => {
+        return () => {
+            isCurrent.current = false;
+        }
+    },[])
+
+
+    useEffect(()=>{
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                if(isCurrent.current){
+                    setState({data, loading: false});
+                }
+            })
+            .catch(err => setState({data: null, loading: false}))
+    },[url])
+
+    return state;
+}
+
+export default useFetch

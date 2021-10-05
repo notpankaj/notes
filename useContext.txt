@@ -1,0 +1,9 @@
+//creating
+export const ThemeContext = React.createContext();
+function App() {
+const [isDark,setIsDark] = useState(false);
+  return (
+    <ThemeContext.Provider value={{ isDark,setIsDark }}>
+
+//using 
+  const {isDark} =  useContext(ThemeContext)
