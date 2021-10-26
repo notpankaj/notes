@@ -1,0 +1,69 @@
+1.add this line to make it cli
+#!/usr/bin/env node
+
+2. we need to make a run command that start our script/cli-app
+inside package.json
+"bin": {
+    "rainer": "index.js"
+},
+
+3. we need to install our cli-app globally in local machine 
+npm link
+
+4. run script
+// now we can run script from anywhere by running "rainer" in cli
+
+5. uninstall script
+// npm uninstall -g rainer
+
+
+----------------------------------------
+    COMPONENT
+----------------------------------------
+--c  
+with class components
+--f  
+with functional components
+
+
+
+----------------------------------------
+    StyleSheet
+----------------------------------------
+
+--css  
+with css
+--scss
+with scss
+--sass
+with sass
+--less
+
+
+-----------------------------------------
+    redux ---Setup 
+-----------------------------------------
+
+
+-----------------------------------------
+    Resource -h ES
+-----------------------------------------
+with useEffect/useState
+
+-----------------------------------------
+    Resource -
+-----------------------------------------
+with useEffect/useState
+
+
+
+
+-----------------------------------------
+    path HANDLING
+-----------------------------------------
+/components/Product
+/components/Dashboard/User
+
+
+/pages/Home
+/pages/Dashboard/UserPage
