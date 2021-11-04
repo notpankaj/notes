@@ -74,4 +74,4 @@ Tables
 checkbox
 
 - [x] done
-- [] pending
+- [ ] pending
