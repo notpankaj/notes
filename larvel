@@ -1,3 +1,5 @@
 composer global require "laravel/installer"
 export PATH="~/.config/composer/vendor/bin:$PATH"
 source .bashrc
+
+https://drive.google.com/file/d/1aFb76qMP1pQiMvrI0LfmRn-jyCcLQe4t/view?usp=sharing
