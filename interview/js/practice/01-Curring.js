@@ -9,7 +9,9 @@ console.log(result)
 
 
 
-// multi-chain or n number of curring
+/* ===================================== 
+    multi-chain or n number of curring
+   ===================================== */
 var count = 0
 function sum(a) {
    count = a
